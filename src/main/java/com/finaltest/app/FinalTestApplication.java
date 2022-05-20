@@ -1,5 +1,6 @@
 package com.finaltest.app;
 
+import com.finaltest.app.root.SpringApplicationContext;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
@@ -31,4 +32,8 @@ public class FinalTestApplication {
         return new BCryptPasswordEncoder();
     }
 
+    @Bean
+    public SpringApplicationContext springApplicationContext(){
+        return new SpringApplicationContext();
+    }
 }

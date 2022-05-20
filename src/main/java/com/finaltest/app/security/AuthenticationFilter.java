@@ -3,9 +3,14 @@ package com.finaltest.app.security;
 import com.fasterxml.jackson.core.exc.StreamReadException;
 import com.fasterxml.jackson.databind.DatabindException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.finaltest.app.dto.UserDto;
 import com.finaltest.app.model.request.UserLoginRequest;
+import com.finaltest.app.root.SpringApplicationContext;
+import com.finaltest.app.service.UserService;
+import com.finaltest.app.serviceImp.UserServiceImp;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+import org.springframework.boot.SpringApplication;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -54,7 +59,9 @@ public class AuthenticationFilter extends UsernamePasswordAuthenticationFilter {
                                      .setExpiration(new Date(System.currentTimeMillis() + SecurityConstant.EXPIRATION_TIME))
                                      .signWith(SignatureAlgorithm.HS512,SecurityConstant.TOKEN_SECRET)
                                      .compact();
+        UserService userService = (UserService) SpringApplicationContext.getBean("userServiceImp");
+        UserDto userDto = userService.getUser(userName);
         response.addHeader(SecurityConstant.HEADER_STRING, SecurityConstant.TOKEN_PREFIX + token);
-
+        response.addHeader("UserId",userDto.getUserId());
     }
 }
