@@ -29,7 +29,6 @@ public class UserServiceImp implements UserService {
 
     @Override
     public UserDto createUser(UserDto userDto) {
-
         UserEntity storeUserDetails = userRepository.findByEmail(userDto.getEmail());
         if(storeUserDetails!=null) throw new RuntimeException("user already exits");
 
@@ -60,10 +59,19 @@ public class UserServiceImp implements UserService {
     }
 
     @Override
+    public UserDto getUserByUserId(String userId) {
+        UserDto userDto = new UserDto();
+
+        UserEntity userEntity = userRepository.findByUserId(userId);
+        if (userEntity == null) throw new UsernameNotFoundException(userId);
+        BeanUtils.copyProperties(userEntity,userDto);
+
+        return userDto;
+    }
+
+    @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-
         UserEntity userEntity = userRepository.findByEmail(email);
-
         if (userEntity == null) throw new UsernameNotFoundException(email);
 
         return new User(userEntity.getEmail(),userEntity.getEncryptedPassword(),new ArrayList<>());

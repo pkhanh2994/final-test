@@ -57,7 +57,7 @@ public class AuthenticationFilter extends UsernamePasswordAuthenticationFilter {
         String userName = ((User)authResult.getPrincipal()).getUsername();
         String token = Jwts.builder().setSubject(userName)
                                      .setExpiration(new Date(System.currentTimeMillis() + SecurityConstant.EXPIRATION_TIME))
-                                     .signWith(SignatureAlgorithm.HS512,SecurityConstant.TOKEN_SECRET)
+                                     .signWith(SignatureAlgorithm.HS512,SecurityConstant.getTokenSecret())
                                      .compact();
         UserService userService = (UserService) SpringApplicationContext.getBean("userServiceImp");
         UserDto userDto = userService.getUser(userName);
