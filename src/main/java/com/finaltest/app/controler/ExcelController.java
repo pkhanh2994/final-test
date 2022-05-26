@@ -46,4 +46,17 @@ public class ExcelController {
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
+    @PostMapping("/reader")
+    public ResponseEntity<List<Tutorial>> getTutorials(@RequestParam("file") MultipartFile file) {
+        try {
+            List<Tutorial> tutorials = fileService.readFileExcelGeneric(file);
+            if (tutorials.isEmpty()) {
+                return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+            }
+            return new ResponseEntity<>(tutorials, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
 }

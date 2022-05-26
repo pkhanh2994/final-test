@@ -9,5 +9,7 @@ public interface ExcelService {
 
     public void save(MultipartFile file);
 
+    List<Tutorial> readFileExcelGeneric(MultipartFile file);
+
     List<Tutorial> getAllTutorials();
 }

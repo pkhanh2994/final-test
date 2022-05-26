@@ -1,15 +1,24 @@
 package com.finaltest.app.serviceImp;
 
 import com.finaltest.app.entity.Tutorial;
+import com.finaltest.app.excelComon.ExcelField;
+import com.finaltest.app.excelComon.ExcelFieldMapper;
+import com.finaltest.app.excelComon.ExcelFileReader;
+import com.finaltest.app.excelComon.ExcelSection;
 import com.finaltest.app.helper.ExcelHelper;
 import com.finaltest.app.repository.TutorialRepository;
 import com.finaltest.app.service.ExcelService;
+import org.apache.poi.EncryptedDocumentException;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class ExcelServiceImp implements ExcelService {
@@ -27,4 +36,33 @@ public class ExcelServiceImp implements ExcelService {
     public List<Tutorial> getAllTutorials() {
         return repository.findAll();
     }
+
+    public List<Tutorial> readFileExcelGeneric(MultipartFile file) {
+        List<Tutorial>tutorials;
+        try {
+            Workbook workbook = ExcelFileReader.readExcel(file.getInputStream());
+            Sheet sheet = workbook.getSheetAt(0);
+            Map<String, List<ExcelField[]>> excelRowValuesMap = ExcelFileReader.getExcelRowValues(sheet);
+//            excelRowValuesMap.forEach((section, rows) -> {
+//                boolean headerPrint = true;
+//                for (ExcelField[] evc : rows) {
+//                    if (headerPrint) {
+//                        headerPrint = false;
+//                    }
+//                    for (int j = 0; j < evc.length; j++) {
+//                        // System.out.print(evc[j].getExcelValue() + "t");
+//                    }
+//                    // System.out.println();
+//                }
+//                // System.out.println();
+//            });
+          tutorials = ExcelFieldMapper.getPojos(excelRowValuesMap.get(ExcelSection.TUTORIALS.getValue()),
+                    Tutorial.class);
+        return tutorials;
+        } catch (EncryptedDocumentException | IOException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
 }
