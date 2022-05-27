@@ -54,13 +54,14 @@ public class ExcelFileReader {
                     excelField.setExcelHeader(ehc.getExcelHeader());
                     excelField.setExcelIndex(ehc.getExcelIndex());
                     excelField.setPojoAttribute(ehc.getPojoAttribute());
-                    if (FieldType.STRING.getValue().equalsIgnoreCase(cellType)) {
-                        excelField.setExcelValue(cell.getStringCellValue());
-                    } else if (FieldType.DOUBLE.getValue().equalsIgnoreCase(cellType)
-                            || FieldType.INTEGER.getValue().equalsIgnoreCase(cellType)) {
+
+
+                    if (FieldType.LONG.getValue().equalsIgnoreCase(cellType)) {
                         excelField.setExcelValue(String.valueOf(cell.getNumericCellValue()));
-                    } else if (DateUtil.isCellDateFormatted(cell)) {
-                        excelField.setExcelValue(String.valueOf(dtf.format(cell.getDateCellValue())));
+                    } else if (FieldType.STRING.getValue().equalsIgnoreCase(cellType)) {
+                        excelField.setExcelValue(cell.getStringCellValue());
+                    } else if (FieldType.BOOLEAN.getValue().equalsIgnoreCase(cellType)) {
+                        excelField.setExcelValue(String.valueOf(cell.getBooleanCellValue()));
                     }
                     excelFieldArr[k++] = excelField;
                 }

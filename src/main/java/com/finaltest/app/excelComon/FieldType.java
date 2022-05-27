@@ -5,10 +5,9 @@ import lombok.Getter;
 @Getter
 public enum FieldType {
 
-    DOUBLE("Double"),
-    INTEGER("Integer"),
+    LONG("long"),
     STRING("String"),
-    DATE("Date");
+    BOOLEAN("boolean");
 
     public final String typeValue;
 

@@ -35,14 +35,12 @@ public class ExcelFieldMapper {
                     if (evc[i].getPojoAttribute().equalsIgnoreCase(field.getName())) {
 
                         try {
-                            if (FieldType.STRING.getValue().equalsIgnoreCase(evc[i].getExcelColType())) {
+                            if (FieldType.LONG.getValue().equalsIgnoreCase(evc[i].getExcelColType())) {
+                                field.set(t, Long.valueOf(evc[i].getExcelValue()));
+                            } else if (FieldType.STRING.getValue().equalsIgnoreCase(evc[i].getExcelColType())) {
                                 field.set(t, evc[i].getExcelValue());
-                            } else if (FieldType.DOUBLE.getValue().equalsIgnoreCase(evc[i].getExcelColType())) {
-                                field.set(t, Double.valueOf(evc[i].getExcelValue()));
-                            } else if (FieldType.INTEGER.getValue().equalsIgnoreCase(evc[i].getExcelColType())) {
-                                field.set(t, Double.valueOf(evc[i].getExcelValue()).intValue());
-                            } else if (FieldType.DATE.getValue().equalsIgnoreCase(evc[i].getExcelColType())) {
-                                field.set(t, LocalDate.parse(evc[i].getExcelValue(), dtf));
+                            } else if (FieldType.BOOLEAN.getValue().equalsIgnoreCase(evc[i].getExcelColType())) {
+                                field.set(t, Boolean.valueOf(evc[i].getExcelValue()));
                             }
                         } catch (IllegalArgumentException | IllegalAccessException e) {
                             e.printStackTrace();

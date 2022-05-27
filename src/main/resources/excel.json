@@ -1,0 +1,34 @@
+[
+  {
+    "Tutorials": [
+      {
+        "excelHeader": "Id",
+        "excelIndex": 0,
+        "excelColType": "long",
+        "excelValue": null,
+        "pojoAttribute": "id"
+      },
+      {
+        "excelHeader": "Title",
+        "excelIndex": 1,
+        "excelColType": "String",
+        "excelValue": null,
+        "pojoAttribute": "title"
+      },
+      {
+        "excelHeader": "Description",
+        "excelIndex": 2,
+        "excelColType": "String",
+        "excelValue": null,
+        "pojoAttribute": "description"
+      },
+      {
+        "excelHeader": "Published",
+        "excelIndex": 3,
+        "excelColType": "boolean",
+        "excelValue": null,
+        "pojoAttribute": "published"
+      }
+    ]
+  }
+]
