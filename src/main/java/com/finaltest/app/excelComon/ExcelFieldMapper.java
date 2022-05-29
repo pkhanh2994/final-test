@@ -33,11 +33,10 @@ public class ExcelFieldMapper {
                     field.setAccessible(true);
 
                     if (evc[i].getPojoAttribute().equalsIgnoreCase(field.getName())) {
-                        
-                        
+
                         try {
                             if (FieldType.LONG.getValue().equalsIgnoreCase(evc[i].getExcelColType())) {
-                                field.set(t, Long.valueOf(evc[i].getExcelValue()));
+                                field.set(t, Double.valueOf(evc[i].getExcelValue()).longValue());
                             } else if (FieldType.STRING.getValue().equalsIgnoreCase(evc[i].getExcelColType())) {
                                 field.set(t, evc[i].getExcelValue());
                             } else if (FieldType.BOOLEAN.getValue().equalsIgnoreCase(evc[i].getExcelColType())) {

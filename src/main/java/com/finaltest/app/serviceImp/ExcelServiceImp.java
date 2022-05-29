@@ -43,19 +43,7 @@ public class ExcelServiceImp implements ExcelService {
             Workbook workbook = ExcelFileReader.readExcel(file.getInputStream());
             Sheet sheet = workbook.getSheetAt(0);
             Map<String, List<ExcelField[]>> excelRowValuesMap = ExcelFileReader.getExcelRowValues(sheet);
-//            excelRowValuesMap.forEach((section, rows) -> {
-//                boolean headerPrint = true;
-//                for (ExcelField[] evc : rows) {
-//                    if (headerPrint) {
-//                        headerPrint = false;
-//                    }
-//                    for (int j = 0; j < evc.length; j++) {
-//                        // System.out.print(evc[j].getExcelValue() + "t");
-//                    }
-//                    // System.out.println();
-//                }
-//                // System.out.println();
-//            });
+
           tutorials = ExcelFieldMapper.getPojos(excelRowValuesMap.get(ExcelSection.TUTORIALS.getValue()),
                     Tutorial.class);
         return tutorials;

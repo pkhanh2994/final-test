@@ -41,7 +41,7 @@ public class ExcelFileReader {
         int totalRows = sheet.getLastRowNum();
         excelSectionHeaders.forEach((section, excelFields) -> {
             List<ExcelField[]> excelFieldList = new ArrayList<>();
-            for (int i = 2; i <= totalRows; i++) {
+            for (int i = 1; i <= totalRows; i++) {
                 Row row = sheet.getRow(i);
                 ExcelField[] excelFieldArr = new ExcelField[excelFields.length];
                 int k = 0;
@@ -58,6 +58,7 @@ public class ExcelFileReader {
 
                     if (FieldType.LONG.getValue().equalsIgnoreCase(cellType)) {
                         excelField.setExcelValue(String.valueOf(cell.getNumericCellValue()));
+//                        excelField.setExcelValue(cell.getStringCellValue());
                     } else if (FieldType.STRING.getValue().equalsIgnoreCase(cellType)) {
                         excelField.setExcelValue(cell.getStringCellValue());
                     } else if (FieldType.BOOLEAN.getValue().equalsIgnoreCase(cellType)) {
